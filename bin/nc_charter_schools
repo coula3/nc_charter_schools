@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
-puts "hello world"
+require_relative '../lib/nc_charter_schools'
+
+NcCharterSchools::CLI.new.call

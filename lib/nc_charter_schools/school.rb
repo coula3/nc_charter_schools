@@ -1,0 +1,3 @@
+class NcCharterSchools::School
+  
+end
