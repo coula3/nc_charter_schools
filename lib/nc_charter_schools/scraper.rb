@@ -8,5 +8,33 @@ class NcCharterSchools::Scraper
   def self.scrape_name      
     @@name ||= doc.css("td.t15Body a").map {|name| name.text}
   end
+  
+  def self.scrape_url
+        @@url ||= doc.css("td.t15Body a").map {|url| url.attribute("href").value}
+    end
+
+    def self.scrape_charter_code
+        @@charter_code ||= doc.css("td.apex_report_break").map {|code| code.children.text.scan(/Charter Code:\s\S+/).join.gsub("Charter Code: ", "")}
+    end
+
+    def self.scrape_city_state
+        @@city_state ||= doc.css("td.apex_report_break").map {|cs| cs.children.text.scan(/\w+\s\w+\s\,\s\NC\s\d+|\w+\,\s\NC\s\d+|\w+\s\w+\,\s\NC\s\d+|\w+\-\w+\,\s\NC\s\d+/).join.gsub(/\D+\n/, "").gsub("\n", "")}.map {|e| e.gsub(/\A\d+/, "")}
+    end
+
+    def self.scrape_county
+        @@county ||= doc.css("td.apex_report_break").map {|county| county.children.text.scan(/County:\s\w+\s\w+/).join.gsub(/\nSchool/, "").gsub("County: ", "")}
+    end
+
+    def self.scrape_telephone
+        @@telephone ||= doc.css("td.apex_report_break").map {|tel| tel.children.text.scan(/Phone:\s\d+\.\d+\d.\d+/).join.gsub("Phone: ", "")}
+    end
+
+    def self.scrape_effective_date
+        @@effective_date ||= doc.css("td.apex_report_break").map {|date| date.children.text.scan(/School Effective Date:\s\d+\/\d+\/\d+/).join.gsub("School Effective Date: ","").gsub("/", "-")}
+    end
+
+    def self.scrape_grade
+        @@grade ||= doc.css("tr.highlight-row").map {|grade| grade.children[3].text}
+    end
 
 end
