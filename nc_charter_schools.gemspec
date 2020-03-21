@@ -9,19 +9,19 @@ Gem::Specification.new do |spec|
   spec.authors       = ["'Alvin Coulson'"]
   spec.email         = ["'aaacoulson@gmail.com'"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{An analysis of charter schools in North Carolina}
+  spec.description   = %q{The CLI app on NC charter schools provides analysis of the headline data maintained by the NC Department of Public Instruction (DPI). The users will include parents, charter management organizations, advocates of increased access to public charter schools and other public education stakeholders and interest groups. The app extends the functionality of data maintained by NC DPI website and other related websites by providing users with information of added value to decision making.}
+  spec.homepage      = "http://www.nccharterschools.com"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+    spec.metadata["allowed_push_host"] = "http://www.nccharterschools.com"
 
     spec.metadata["homepage_uri"] = spec.homepage
-    spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-    spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+    spec.metadata["source_code_uri"] = "http://www.nccharterschools.com"
+    spec.metadata["changelog_uri"] = "http://www.nccharterschools.com"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
