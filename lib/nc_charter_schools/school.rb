@@ -59,4 +59,20 @@ class NcCharterSchools::School
       end
     end 
   end
+
+  def self.open_school_website
+    urls = get_school_urls
+    user_input = gets.chomp.to_i
+    
+    if urls[user_input].include?("http") || urls[user_input].include?("www")
+      system("open '#{urls[user_input]}'")
+    else
+      puts "There is no valid website available for this school"
+    end
+  end
+  
+  def self.get_school_urls
+     NcCharterSchools::School.all.map {|sch| sch.url}
+  end
 end
+
