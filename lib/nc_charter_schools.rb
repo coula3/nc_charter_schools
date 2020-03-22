@@ -3,6 +3,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'pry'
+require 'tty-prompt'
 
 require_relative './nc_charter_schools/version'
 require_relative './nc_charter_schools/cli'

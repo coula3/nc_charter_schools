@@ -42,6 +42,21 @@ class NcCharterSchools::School
  end
  
  def self.find_by_number
+   user_input = gets.chomp.to_i
    
- end
+   NcCharterSchools::School.all.find.with_index do |sch, index|
+     if index == user_input -1
+        puts
+        puts "Details of Schools"
+        puts "Name:               #{sch.name}"
+        puts "URL:                #{sch.url}"
+        puts "Charter Code:       #{sch.charter_code}"
+        puts "City & Code:        #{sch.city_state}"
+        puts "County:             #{sch.county}"
+        puts "Telephone:          #{sch.telephone}"
+        puts "Effective_date:     #{sch.effective_date}"
+        puts "Grade:              #{sch.grade}"
+      end
+    end 
+  end
 end
