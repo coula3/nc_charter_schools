@@ -37,7 +37,7 @@ class NcCharterSchools::School
  
  def self.view_schools
     NcCharterSchools::School.all.each.with_index(1) do |sch, index|
-      puts "#{index}. #{sch.name}"
+      print "#{index}. #{sch.name}  "
     end
  end
  
@@ -71,8 +71,20 @@ class NcCharterSchools::School
     end
   end
   
-  def self.get_school_urls
-     NcCharterSchools::School.all.map {|sch| sch.url}
+  def self.get_school_urls  # helper_method
+    NcCharterSchools::School.all.map {|sch| sch.url}
+  end
+  
+  def self.find_schools_by_county
+    puts
+    get_school_counties.sort.uniq.each.with_index(1) do |county, index|
+      print "#{index}. #{county}  "
+    end
+    puts
+  end
+  
+  def self.get_school_counties  # helper_method
+    NcCharterSchools::School.all.map {|c| c.county}
   end
 end
 
