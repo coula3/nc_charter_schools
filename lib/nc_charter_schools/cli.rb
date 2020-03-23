@@ -11,7 +11,6 @@ class NcCharterSchools::CLI
     NcCharterSchools::School.new_from_ncdpi_website
     
     self.class.menu
-    
   end
 
   def self.menu

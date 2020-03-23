@@ -2,6 +2,10 @@ class NcCharterSchools::School
   attr_accessor :name, :url, :charter_code, :city_state, :county, :telephone, :effective_date, :grade
   @@all = []
   
+  def initialize
+    save
+  end
+  
   def self.all
     @@all
   end
@@ -30,7 +34,6 @@ class NcCharterSchools::School
       school.telephone = telephone
       school.effective_date = effective_date
       school.grade = grade
-      school.save
     end
    
  end
@@ -39,18 +42,21 @@ class NcCharterSchools::School
     NcCharterSchools::School.all.each.with_index(1) do |sch, index|
       puts "#{index}. #{sch.name}  "
     end
+    NcCharterSchools::CLI.menu
  end
  
- def self.find_by_number
+ def self.find_school_by_number
+   prompt = TTY::Prompt.new
    #user_input = gets.chomp.to_i
    user_input = @@user_input   # variable obtained from get_user_input method
    
    NcCharterSchools::School.all.find.with_index do |sch, index|
      if index == user_input -1
         puts
-        puts "Details of Schools"
+        puts "School Details"
+        puts "-----------------"
         puts "Name:               #{sch.name}"
-        puts "URL:                #{sch.url}"
+        puts "Wesite:             #{sch.url}"
         puts "Charter Code:       #{sch.charter_code}"
         puts "City & Code:        #{sch.city_state}"
         puts "County:             #{sch.county}"
@@ -59,6 +65,16 @@ class NcCharterSchools::School
         puts "Grade:              #{sch.grade}"
         @@school_url = index  # variable used in open_school_website method to open website
       end
+    end
+    puts
+    
+    visit_school_website = prompt.select("Would you like to visit the school's website? ", %w(Yes No)) 
+    
+    if visit_school_website == "Yes"
+      open_school_website
+      NcCharterSchools::CLI.menu
+    else
+      NcCharterSchools::CLI.menu
     end
   end
 
@@ -85,8 +101,8 @@ class NcCharterSchools::School
     end
     
     puts
+    puts
     puts "Please select county using assigned number"
-    
     user_input = gets.chomp.to_i
     
     if until user_input > 0 && user_input <= get_school_counties.uniq.size do
@@ -104,6 +120,35 @@ class NcCharterSchools::School
           v.each.with_index(1) {|element, index| puts " #{index}. #{element}"}
         end
       end
+    end
+    NcCharterSchools::CLI.menu
+  end
+  
+  def self.get_user_input #
+    prompt = TTY::Prompt.new
+    puts
+    user_confirmation = prompt.select("Do you have the assigned number of school you would like to find? ", %w(Yes No))
+    
+    if user_confirmation == "Yes"
+      puts
+      puts "Please select between 1 and #{ NcCharterSchools::School.all.size}"
+      user_input = gets.chomp.to_i
+
+      if until user_input > 0 && user_input <= NcCharterSchools::School.all.size do 
+        puts 
+        puts "You made an invalid selection. Please try again"
+        user_input = gets.chomp.to_i
+        end          
+      else
+        @@user_input = user_input
+        NcCharterSchools::School.find_school_by_number
+      end
+    else
+      puts
+      puts "Please select from alphabetical list of schools which will be available momentarily"
+      sleep 2.5
+      view_schools
+      puts
     end
   end
   
