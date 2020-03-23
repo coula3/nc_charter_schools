@@ -37,12 +37,13 @@ class NcCharterSchools::School
  
  def self.view_schools
     NcCharterSchools::School.all.each.with_index(1) do |sch, index|
-      print "#{index}. #{sch.name}  "
+      puts "#{index}. #{sch.name}  "
     end
  end
  
  def self.find_by_number
-   user_input = gets.chomp.to_i
+   #user_input = gets.chomp.to_i
+   user_input = @@user_input   # variable obtained from get_user_input method
    
    NcCharterSchools::School.all.find.with_index do |sch, index|
      if index == user_input -1
@@ -56,13 +57,15 @@ class NcCharterSchools::School
         puts "Telephone:          #{sch.telephone}"
         puts "Effective_date:     #{sch.effective_date}"
         puts "Grade:              #{sch.grade}"
+        @@school_url = index  # variable used in open_school_website method to open website
       end
-    end 
+    end
   end
 
   def self.open_school_website
     urls = get_school_urls
-    user_input = gets.chomp.to_i
+    #user_input = gets.chomp.to_i
+    user_input = @@school_url
     
     if urls[user_input].include?("http") || urls[user_input].include?("www")
       system("open '#{urls[user_input]}'")
@@ -104,7 +107,7 @@ class NcCharterSchools::School
     end
   end
   
-  def self.get_school_name
+  def self.get_school_name  #
     name = NcCharterSchools::School.all.map {|n| n.name}
   end
   
