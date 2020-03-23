@@ -71,7 +71,7 @@ class NcCharterSchools::School
     end
   end
   
-  def self.get_school_urls  # helper_method
+  def self.get_school_urls  #
     NcCharterSchools::School.all.map {|sch| sch.url}
   end
   
@@ -80,10 +80,48 @@ class NcCharterSchools::School
     get_school_counties.sort.uniq.each.with_index(1) do |county, index|
       print "#{index}. #{county}  "
     end
+    
     puts
+    puts "Please select county using assigned number"
+    
+    user_input = gets.chomp.to_i
+    
+    if until user_input > 0 && user_input <= get_school_counties.uniq.size do
+      puts
+      puts ""
+      user_input = gets.chomp.to.i
+      end
+    else
+      puts
+      selected_county = get_school_counties.sort.uniq[user_input -1]
+      get_schools_by_county.find do |k, v|
+        if k == selected_county
+          puts "#{k}"
+          puts
+          v.each.with_index(1) {|element, index| puts " #{index}. #{element}"}
+        end
+      end
+    end
   end
   
-  def self.get_school_counties  # helper_method
+  def self.get_school_name
+    name = NcCharterSchools::School.all.map {|n| n.name}
+  end
+  
+  def self.get_schools_by_county  #
+    county_sch_hash = Hash.new {|hash, key| hash[key] = []}
+
+    merge_sch_county_and_school_name.each do |index|  
+      county_sch_hash[index[0]] << index[1]
+    end
+    county_sch_hash
+  end
+  
+  def self.merge_sch_county_and_school_name   #
+    get_school_counties.zip(get_school_name)
+  end
+  
+  def self.get_school_counties  #
     NcCharterSchools::School.all.map {|c| c.county}
   end
 end
