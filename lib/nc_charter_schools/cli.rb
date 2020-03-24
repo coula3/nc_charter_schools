@@ -16,7 +16,7 @@ class NcCharterSchools::CLI
   def self.menu
     puts
     prompt = TTY::Prompt.new
-    menu = prompt.select("Please select what you would like to do:  ", %w(View_Schools  Find_School_by_Number Find_Schools_by_County Exit))
+    menu = prompt.select("Please select what you would like to do:  ", %w(View_Schools  Find_School_by_Number Find_Schools_by_County View_County_Coverage_of_Schools Exit))
   
     case menu
       when "View_Schools"
@@ -25,6 +25,8 @@ class NcCharterSchools::CLI
         NcCharterSchools::School.get_user_input
       when "Find_Schools_by_County"
         NcCharterSchools::School.find_schools_by_county
+      when "View_County_Coverage_of_Schools"
+        NcCharterSchools::School.view_county_coverage_of_schools
       else
         puts
         puts "Thank you for using the app and goodbye!"

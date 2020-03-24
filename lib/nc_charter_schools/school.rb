@@ -124,6 +124,34 @@ class NcCharterSchools::School
     NcCharterSchools::CLI.menu
   end
   
+  def self.view_county_coverage_of_schools
+    puts
+    puts "County           Schools"
+    puts "------------------------"
+    sorted_get_number_of_schools_by_county = get_number_of_schools_by_county.sort_by {|k, v| v}.reverse.to_h
+      sorted_get_number_of_schools_by_county.each do |k, v|
+        puts "#{k.ljust(get_number_of_schools_by_county.keys.max_by(&:length).length)}          #{v}"
+      end
+    puts "-----------------------"
+    puts "No. of counties      #{get_number_of_schools_by_county.size}"
+    puts
+    puts "NC county coverage #{((get_number_of_schools_by_county.size.to_f/get_nc_counties.size)*100).round(1)}%"
+    puts
+    NcCharterSchools::CLI.menu
+  end
+  
+  def self.get_nc_counties  #
+    NcCharterSchools::Scraper.scrape_nc_county
+  end
+  
+  def self.get_number_of_schools_by_county  #
+    county_hash = Hash.new{0}
+    get_school_counties.each do |c|
+      county_hash[c] += 1
+    end
+    county_hash
+  end
+  
   def self.get_user_input #
     prompt = TTY::Prompt.new
     puts
