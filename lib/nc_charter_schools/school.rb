@@ -68,7 +68,7 @@ class NcCharterSchools::School
     end
     puts
     
-    visit_school_website = prompt.select("Would you like to visit the school's website? ", %w(Yes No)) 
+    visit_school_website = prompt.select("Would you like to visit the school's website? ", %w(No Yes)) 
     
     if visit_school_website == "Yes"
       open_school_website
@@ -107,8 +107,8 @@ class NcCharterSchools::School
     
     if until user_input > 0 && user_input <= get_school_counties.uniq.size do
       puts
-      puts ""
-      user_input = gets.chomp.to.i
+      puts "You made an invalid selection. Please try again"
+      user_input = gets.chomp.to_i
       end
     else
       puts
