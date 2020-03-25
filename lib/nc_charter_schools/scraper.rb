@@ -18,7 +18,10 @@ class NcCharterSchools::Scraper
   end
 
   def self.scrape_city_state
-    @@city_state ||= doc.css("td.apex_report_break").map {|cs| cs.children.text.scan(/\w+\s\w+\s\,\s\NC\s\d+|\w+\,\s\NC\s\d+|\w+\s\w+\,\s\NC\s\d+|\w+\-\w+\,\s\NC\s\d+/).join.gsub(/\D+\n/, "").gsub("\n", "")}.map {|e| e.gsub(/\A\d+/, "")}
+    @@city_state ||= doc.css("td.apex_report_break").map do |cs| 
+      city_state_text = cs.children.text.scan(/\w+\s\w+\s\,\s\NC\s\d+|\w+\,\s\NC\s\d+|\w+\s\w+\,\s\NC\s\d+|\w+\-\w+\,\s\NC\s\d+/).join
+      sanitized_text = city_state_text.gsub(/\D+\n/, "").gsub("\n", "")
+    end.map {|e| e.gsub(/\A\d+/, "")}
   end
 
   def self.scrape_county
