@@ -157,13 +157,10 @@ class NcCharterSchools::School
     
     puts
     age_category = prompt.select("Please select the time period of school effective date: ", %w(Under_1_year Between_1_and_5_years Between_5_and_10_years Over_10_years Menu))
-    
-    puts
-    puts "Effective Date    School Name"
-    puts "-----------------------------"
 
     case age_category
       when "Under_1_year"
+        heading_for_view_schools_by_age_category
         merge_eff_date_and_school_name.select do |element|
           if element[0] > Time.now - calculate_year
             puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
@@ -172,7 +169,9 @@ class NcCharterSchools::School
         end
       puts
       puts "  #{count} school(s) with effective date #{age_category.downcase.gsub("_", " ")}"
+      view_schools_by_age_category
       when "Between_1_and_5_years"
+        heading_for_view_schools_by_age_category
         merge_eff_date_and_school_name.select do |element|
           if element[0] <= Time.now - calculate_year && element[0] > Time.now - (calculate_year * 5)
             puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
@@ -181,7 +180,9 @@ class NcCharterSchools::School
         end
         puts
         puts "  #{count} school(s) with effective date #{age_category.downcase.gsub("_", " ")}"
+        view_schools_by_age_category
       when "Between_5_and_10_years"
+        heading_for_view_schools_by_age_category
         merge_eff_date_and_school_name.select do |element|
           if element[0] <= Time.now - (calculate_year * 5) && element[0] > Time.now - (calculate_year * 10)
             puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
@@ -190,7 +191,9 @@ class NcCharterSchools::School
         end
         puts
         puts "  #{count} school(s) with effective date #{age_category.downcase.gsub("_", " ")}"
+        view_schools_by_age_category
       when "Over_10_years"
+        heading_for_view_schools_by_age_category
         merge_eff_date_and_school_name.select do |element|
           if element[0] <= Time.now - (calculate_year * 10) 
             puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
@@ -199,11 +202,11 @@ class NcCharterSchools::School
         end
         puts
         puts "  #{count} school(s) with effective date #{age_category.downcase.gsub("_", " ")}"
+        view_schools_by_age_category
       else
         NcCharterSchools::CLI.menu
+        puts
     end
-    puts
-    NcCharterSchools::CLI.menu
   end
 
   def self.view_school_types
@@ -216,6 +219,12 @@ class NcCharterSchools::School
     puts "                    TOTAL      #{NcCharterSchools::School.all.size}"
     puts
     NcCharterSchools::CLI.menu
+  end
+
+  def self.heading_for_view_schools_by_age_category #
+    puts
+    puts "Effective Date    School Name"
+    puts "-----------------------------"
   end
 
   def self.count_school_types #
