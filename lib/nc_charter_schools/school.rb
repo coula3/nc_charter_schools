@@ -206,6 +206,44 @@ class NcCharterSchools::School
     NcCharterSchools::CLI.menu
   end
 
+  def self.view_school_types
+    sorted_school_type_hash = count_school_types.sort_by {|k, v| v}.reverse.to_h
+    puts
+    sorted_school_type_hash.each do |k, v|
+        puts "#{k.ljust(30)} #{v}   (#{((v/NcCharterSchools::School.all.size.to_f)*100).round(1)}%)"
+    end
+    puts "---------------------------------------"
+    puts "                    TOTAL      #{NcCharterSchools::School.all.size}"
+    puts
+    NcCharterSchools::CLI.menu
+  end
+
+  def self.count_school_types #
+    school_type_hash = Hash.new(0)
+    get_school_type.each do |type|
+        school_type_hash[type] += 1 
+    end
+    school_type_hash
+  end
+
+  def self.get_school_type
+    NcCharterSchools::School.all.map do |element|
+      if element.grade == ":KG:01:02:03:04:05" || element.grade == ":KG"
+        "Elem School only"
+      elsif element.grade == ":06:07:08"
+        "Middle School only"
+      elsif element.grade == ":09:10:11:12"
+        "High School only"
+      elsif element.grade == ":01:02:03:04:05:06:07:08" || element.grade == "03:04:05:06:07:08" || element.grade == "KG:01:02:03:04:05:06" || element.grade == ":KG:01:02:03:04:05:06:07:08" || element.grade == ":05:06:07:08" || element.grade == ":P3:PK:KG:01:02:03:04:05:06:07:08" || element.grade == ":PK:KG:01:02:03:04:05:06:07:08"
+        "Elem & Middle School"
+      elsif element.grade == "06:07:08:09:10:11" || element.grade == ":06:07:08:09:10:11:12"
+        "Middle & High School"
+      else
+        "Elem, Middle & High School"
+      end
+    end
+  end
+
   def self.merge_eff_date_and_school_name #
     get_effective_date.zip(get_school_name)
   end
