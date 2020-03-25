@@ -150,6 +150,75 @@ class NcCharterSchools::School
     NcCharterSchools::CLI.menu
   end
   
+  def self.view_schools_by_age_category
+    prompt = TTY::Prompt.new
+    calculate_year
+    count = 0
+    
+    puts
+    age_category = prompt.select("Please select the time period of school effective date: ", %w(Under_1_year Between_1_and_5_years Between_5_and_10_years Over_10_years Menu))
+    
+    puts
+    puts "Effective Date    School Name"
+    puts "-----------------------------"
+
+    case age_category
+      when "Under_1_year"
+        merge_eff_date_and_school_name.select do |element|
+          if element[0] > Time.now - calculate_year
+            puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
+            count += 1
+          end
+        end
+      puts
+      puts "  #{count} school(s) with effective date #{age_category.downcase.gsub("_", " ")}"
+      when "Between_1_and_5_years"
+        merge_eff_date_and_school_name.select do |element|
+          if element[0] <= Time.now - calculate_year && element[0] > Time.now - (calculate_year * 5)
+            puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
+             count += 1
+          end
+        end
+        puts
+        puts "  #{count} school(s) with effective date #{age_category.downcase.gsub("_", " ")}"
+      when "Between_5_and_10_years"
+        merge_eff_date_and_school_name.select do |element|
+          if element[0] <= Time.now - (calculate_year * 5) && element[0] > Time.now - (calculate_year * 10)
+            puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
+            count += 1
+          end
+        end
+        puts
+        puts "  #{count} school(s) with effective date #{age_category.downcase.gsub("_", " ")}"
+      when "Over_10_years"
+        merge_eff_date_and_school_name.select do |element|
+          if element[0] <= Time.now - (calculate_year * 10) 
+            puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
+            count += 1
+          end
+        end
+        puts
+        puts "  #{count} school(s) with effective date #{age_category.downcase.gsub("_", " ")}"
+      else
+        NcCharterSchools::CLI.menu
+    end
+    puts
+    NcCharterSchools::CLI.menu
+  end
+
+  def self.merge_eff_date_and_school_name #
+    get_effective_date.zip(get_school_name)
+  end
+
+  def self.get_effective_date #
+    date = NcCharterSchools::School.all.map {|date| date.effective_date}.map {|t| Time.strptime(t, "%m-%d-%Y")}
+  end
+
+  def self.calculate_year #
+    day = 60 * 60 * 24
+    year = 365 * day
+  end
+
   def self.get_nc_counties  #
     NcCharterSchools::Scraper.scrape_nc_county
   end
