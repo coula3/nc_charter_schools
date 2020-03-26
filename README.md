@@ -1,8 +1,17 @@
 # NcCharterSchools
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/nc_charter_schools`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to CLI App on Charter Schools in North Carolina 
 
-TODO: Delete this and the text above, and describe your gem
+The app provides analysis of headline public data maintained by the North Carolina Department of Public Instruction (NC DPI). The users are expected to include parents, charter management organizations, advocates of increased access to public charter schools and other public education stakeholders and interest groups.
+
+The app extends the functionality of data maintained by NC DPI website by providing users with information on
+
+    - counties and the number of charter schools within, ordered by counties with the highest number of schools to the lowest.
+    - counties without charter schools.
+    - the effective date of all NC charter schools grouped into time periods (e.g under 5 year, between 5 and 10 years, …)
+    - types of charter school (elementary, middle and high)
+
+These functionalities address the challenges of centrally sourcing analysed data on NC charter school data.
 
 ## Installation
 
@@ -22,7 +31,8 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Type in the command below and use the menu option to make your selection.
+$ ./bin/nc_charter_schools
 
 ## Development
 
