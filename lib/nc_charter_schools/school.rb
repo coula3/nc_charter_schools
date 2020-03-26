@@ -45,7 +45,7 @@ class NcCharterSchools::School
     NcCharterSchools::CLI.menu
  end
  
- def self.find_school_by_number
+ def self.find_school_by_name
    prompt = TTY::Prompt.new
    #user_input = gets.chomp.to_i
    user_input = @@user_input   # variable obtained from get_user_input method
@@ -295,7 +295,7 @@ class NcCharterSchools::School
         end          
       else
         @@user_input = user_input
-        NcCharterSchools::School.find_school_by_number
+        NcCharterSchools::School.find_school_by_name
       end
     else
       puts
