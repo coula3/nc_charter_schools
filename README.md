@@ -6,10 +6,10 @@ The app provides analysis of headline public data maintained by the North Caroli
 
 The app extends the functionality of data maintained by NC DPI website by providing users with information on
 
-    - counties and the number of charter schools within, ordered by counties with the highest number of schools to the lowest.
-    - counties without charter schools.
-    - the effective date of all NC charter schools grouped into time periods (e.g under 5 year, between 5 and 10 years, …)
-    - types of charter school (elementary, middle and high)
+1. counties and the number of charter schools within, ordered by counties with the highest number of schools to the lowest.
+2. counties without charter schools.
+3. the effective date of all NC charter schools grouped into time periods (e.g under 5 year, between 5 and 10 years)
+4. types of charter school (elementary, middle and high)
 
 These functionalities address the challenges of centrally sourcing analysed data on NC charter school data.
 
