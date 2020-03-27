@@ -58,7 +58,7 @@ class NcCharterSchools::School
         puts "Name:               #{sch.name}"
         puts "Wesite:             #{sch.url}"
         puts "Charter Code:       #{sch.charter_code}"
-        puts "City & Code:        #{sch.city_state}"
+        puts "City & State:       #{sch.city_state}"
         puts "County:             #{sch.county}"
         puts "Telephone:          #{sch.telephone}"
         puts "Effective_date:     #{sch.effective_date}"
