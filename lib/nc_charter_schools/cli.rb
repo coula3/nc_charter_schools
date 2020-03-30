@@ -1,12 +1,10 @@
 class NcCharterSchools::CLI
   def call
-    puts
-    puts
+    puts "\n\n"
     puts " ================================================================== "
     puts "|     Welcome to CLI App on Charter Schools in North Carolina!     |"
     puts " ================================================================== "
-    puts
-    puts
+    puts "\n\n"
     
     NcCharterSchools::School.new_from_ncdpi_website
     
@@ -14,7 +12,6 @@ class NcCharterSchools::CLI
   end
 
   def self.menu
-    puts
     prompt = TTY::Prompt.new
     menu = prompt.select("Please select what you would like to do:  ", %w(View_Schools  Find_School_by_Name Find_Schools_by_County View_County_Coverage_of_Schools View_Counties_without_Charter_School View_Schools_by_Age_Category View_School_Types Exit))
   
