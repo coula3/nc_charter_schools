@@ -14,7 +14,7 @@ class NcCharterSchools::School
     @@all << self
   end
  
- def self.new_from_ncdpi_website
+  def self.new_from_ncdpi_website
     (0...NcCharterSchools::Scraper.scrape_name.size).to_a.each do |sch|
       name = NcCharterSchools::Scraper.scrape_name[sch]
       url = NcCharterSchools::Scraper.scrape_url[sch]
@@ -36,22 +36,22 @@ class NcCharterSchools::School
       school.grade = grade
     end
    
- end
+  end
  
- def self.view_schools
+  def self.view_schools
     NcCharterSchools::School.all.each.with_index(1) do |sch, index|
       puts "#{index}. #{sch.name}  "
     end
     NcCharterSchools::CLI.menu
- end
+  end
  
- def self.find_school_by_name
-   prompt = TTY::Prompt.new
-   #user_input = gets.chomp.to_i
-   user_input = @@user_input   # variable obtained from get_user_input method
+  def self.find_school_by_name
+    prompt = TTY::Prompt.new
+    #user_input = gets.chomp.to_i
+    user_input = @@user_input   # variable obtained from get_user_input method
    
-   NcCharterSchools::School.all.find.with_index do |sch, index|
-     if index == user_input -1
+    NcCharterSchools::School.all.find.with_index do |sch, index|
+      if index == user_input -1
         puts
         puts "School Details"
         puts "-----------------"
