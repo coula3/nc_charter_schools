@@ -47,28 +47,22 @@ class NcCharterSchools::School
  
   def self.find_school_by_name
     prompt = TTY::Prompt.new
-    #user_input = gets.chomp.to_i
     user_input = @@user_input   # variable obtained from get_user_input method
+    school = NcCharterSchools::School.all[user_input -1]
    
-    NcCharterSchools::School.all.find.with_index do |sch, index|
-      if index == user_input -1
-        puts
-        puts "School Details"
+        puts "\nSchool Details"
         puts "-----------------"
-        puts "Name:               #{sch.name}"
-        puts "Wesite:             #{sch.url}"
-        puts "Charter Code:       #{sch.charter_code}"
-        puts "City & State:       #{sch.city_state}"
-        puts "County:             #{sch.county}"
-        puts "Telephone:          #{sch.telephone}"
-        puts "Effective_date:     #{sch.effective_date}"
-        puts "Grade:              #{sch.grade}"
-        @@school_url = index  # variable used in open_school_website method to open website
-      end
-    end
-    puts
+        puts "Name:               #{school.name}"
+        puts "Wesite:             #{school.url}"
+        puts "Charter Code:       #{school.charter_code}"
+        puts "City & State:       #{school.city_state}"
+        puts "County:             #{school.county}"
+        puts "Telephone:          #{school.telephone}"
+        puts "Effective_date:     #{school.effective_date}"
+        puts "Grade:              #{school.grade}"
+        @@school_url = school.url  # variable used in open_school_website method to open website
     
-    visit_school_website = prompt.select("Would you like to visit the school's website? ", %w(No Yes)) 
+    visit_school_website = prompt.select("\nWould you like to visit the school's website? ", %w(No Yes)) 
     
     if visit_school_website == "Yes"
       open_school_website
@@ -79,14 +73,10 @@ class NcCharterSchools::School
   end
 
   def self.open_school_website
-    urls = get_school_urls
-    #user_input = gets.chomp.to_i
-    user_input = @@school_url
-    
-    if urls[user_input].include?("http") || urls[user_input].include?("www")
-      system("open '#{urls[user_input]}'")
+    if @@school_url.include?("http") || @@school_url.include?("www")
+      system("open '#{@@school_url}'")
     else
-      puts "There is no valid website available for this school"
+      puts "\nThere is no valid website available for this school\n\n"
     end
   end
   
