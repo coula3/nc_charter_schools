@@ -80,10 +80,6 @@ class NcCharterSchools::School
     end
   end
   
-  def self.get_school_urls  #
-    NcCharterSchools::School.all.map {|sch| sch.url}
-  end
-  
   def self.find_schools_by_county
     puts
     get_school_counties.sort.uniq.each.with_index(1) do |county, index|
