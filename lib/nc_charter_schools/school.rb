@@ -85,26 +85,17 @@ class NcCharterSchools::School
       print "#{index}. #{county}  "
     end
     
-    # puts
-    # puts
     puts "\n\nPlease select county using assigned number"
     user_input = gets.chomp.to_i
     
     if until user_input > 0 && user_input <= get_school_counties.uniq.size do
-      # puts
       puts "\nYou made an invalid selection. Please try again"
       user_input = gets.chomp.to_i
       end
     else
-      puts
       selected_county = get_school_counties.sort.uniq[user_input -1]
-      get_schools_by_county.find do |k, v|
-        if k == selected_county
-          puts "#{k}\n"
-          # puts
-          v.each.with_index(1) {|element, index| puts " #{index}. #{element}"}
-        end
-      end
+      puts "\n#{selected_county}\n"
+      get_schools_by_county[selected_county].each.with_index(1) {|element, index| puts " #{index}. #{element}\n"}
     end
     NcCharterSchools::CLI.menu
   end
