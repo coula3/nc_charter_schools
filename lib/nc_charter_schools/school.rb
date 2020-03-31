@@ -50,8 +50,7 @@ class NcCharterSchools::School
     user_input = @@user_input   # variable obtained from get_user_input method
     school = NcCharterSchools::School.all[user_input -1]
    
-        puts "\nSchool Details"
-        puts "-----------------"
+        puts "\nSchool Details\n" "-----------------"
         puts "Name:               #{school.name}"
         puts "Wesite:             #{school.url}"
         puts "Charter Code:       #{school.charter_code}"
@@ -86,14 +85,14 @@ class NcCharterSchools::School
       print "#{index}. #{county}  "
     end
     
-    puts
-    puts
-    puts "Please select county using assigned number"
+    # puts
+    # puts
+    puts "\n\nPlease select county using assigned number"
     user_input = gets.chomp.to_i
     
     if until user_input > 0 && user_input <= get_school_counties.uniq.size do
-      puts
-      puts "You made an invalid selection. Please try again"
+      # puts
+      puts "\nYou made an invalid selection. Please try again"
       user_input = gets.chomp.to_i
       end
     else
@@ -101,8 +100,8 @@ class NcCharterSchools::School
       selected_county = get_school_counties.sort.uniq[user_input -1]
       get_schools_by_county.find do |k, v|
         if k == selected_county
-          puts "#{k}"
-          puts
+          puts "#{k}\n"
+          # puts
           v.each.with_index(1) {|element, index| puts " #{index}. #{element}"}
         end
       end
