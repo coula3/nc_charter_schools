@@ -40,15 +40,14 @@ class NcCharterSchools::School
  
   def self.view_schools
     NcCharterSchools::School.all.each.with_index(1) do |sch, index|
-      puts "#{index}. #{sch.name}  "
+      puts "#{index}. #{sch.name}  \n"
     end
     NcCharterSchools::CLI.menu
   end
  
   def self.find_school_by_name
     prompt = TTY::Prompt.new
-    user_input = @@user_input   # variable obtained from get_user_input method
-    school = NcCharterSchools::School.all[user_input -1]
+    school = NcCharterSchools::School.all[@@user_input -1]
    
         puts "\nSchool Details\n" "-----------------"
         puts "Name:               #{school.name}"
@@ -256,29 +255,29 @@ class NcCharterSchools::School
   
   def self.get_user_input #
     prompt = TTY::Prompt.new
-    puts
-    user_confirmation = prompt.select("Do you have the assigned number of school you would like to find? ", %w(Yes No))
+    user_confirmation = prompt.select("\nDo you have the assigned number of school you would like to find? ", %w(Yes No))
     
     if user_confirmation == "Yes"
-      puts
-      puts "Please select between 1 and #{ NcCharterSchools::School.all.size}"
-      user_input = gets.chomp.to_i
+      puts "\nPlease select between 1 and #{ NcCharterSchools::School.all.size}"
+      @@user_input = gets.chomp.to_i
 
-      if until user_input > 0 && user_input <= NcCharterSchools::School.all.size do 
-        puts 
-        puts "You made an invalid selection. Please try again"
-        user_input = gets.chomp.to_i
-        end          
-      else
-        @@user_input = user_input
-        NcCharterSchools::School.find_school_by_name
-      end
+      validate_user_input
+   
     else
-      puts
-      puts "Please select from alphabetical list of schools which will be available momentarily"
+      puts "\nPlease select from alphabetical list of schools which will be available momentarily"
       sleep 2.5
       view_schools
-      puts
+    end
+  end
+
+  def self.validate_user_input
+    if until @@user_input > 0 && @@user_input <= NcCharterSchools::School.all.size do 
+      puts "\nYou made an invalid selection. Please try again"
+      @@user_input = gets.chomp.to_i
+      end          
+    else
+      @@user_input
+      NcCharterSchools::School.find_school_by_name
     end
   end
   
