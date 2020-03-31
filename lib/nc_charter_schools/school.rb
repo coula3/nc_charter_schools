@@ -190,16 +190,12 @@ class NcCharterSchools::School
     sorted_school_type_hash.each do |k, v|
         puts "#{k.ljust(30)} #{v}   (#{((v/NcCharterSchools::School.all.size.to_f)*100).round(1)}%)"
     end
-    puts "---------------------------------------"
-    puts "                    TOTAL      #{NcCharterSchools::School.all.size}"
-    puts
+    puts "---------------------------------------\n" "                    TOTAL      #{NcCharterSchools::School.all.size}\n"
     NcCharterSchools::CLI.menu
   end
 
   def self.heading_for_view_schools_by_age_category #
-    puts
-    puts "Effective Date    School Name"
-    puts "-----------------------------"
+    puts "\nEffective Date    School Name\n" "-----------------------------"
   end
 
   def self.count_school_types #
@@ -253,7 +249,7 @@ class NcCharterSchools::School
     county_hash
   end
   
-  def self.get_user_input #
+  def self.get_user_input
     prompt = TTY::Prompt.new
     user_confirmation = prompt.select("\nDo you have the assigned number of school you would like to find? ", %w(Yes No))
     
