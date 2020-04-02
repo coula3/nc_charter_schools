@@ -100,27 +100,19 @@ class NcCharterSchools::School
   end
   
   def self.view_county_coverage_of_schools
-    puts
-    puts "County           Schools"
-    puts "------------------------"
+    puts "\nCounty           Schools\n"  "------------------------"
     sorted_get_number_of_schools_by_county = get_number_of_schools_by_county.sort_by {|k, v| v}.reverse.to_h
       sorted_get_number_of_schools_by_county.each do |k, v|
         puts "#{k.ljust(get_number_of_schools_by_county.keys.max_by(&:length).length)}          #{v}"
       end
-    puts "-----------------------"
-    puts "No. of counties      #{get_number_of_schools_by_county.size}"
-    puts
-    puts "NC county coverage #{((get_number_of_schools_by_county.size.to_f/get_nc_counties.size)*100).round(1)}%"
-    puts
+    puts "-----------------------\n" "No. of counties      #{get_number_of_schools_by_county.size}\n\n"
+    puts "NC county coverage #{((get_number_of_schools_by_county.size.to_f/get_nc_counties.size)*100).round(1)}%\n"
     NcCharterSchools::CLI.menu
   end
 
   def self.view_counties_without_charter_school
     counties_without = get_nc_counties - get_school_counties
-    puts
-    puts "NC counties without charter schools"
-    puts "-----------------------------------"
-    
+    puts "\nNC counties without charter schools\n" "-----------------------------------"
     counties_without.each.with_index(1) {|county, index| puts "#{index}. #{county}"}
     NcCharterSchools::CLI.menu
   end
