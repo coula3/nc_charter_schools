@@ -186,11 +186,11 @@ class NcCharterSchools::School
     NcCharterSchools::CLI.menu
   end
 
-  def self.heading_for_view_schools_by_age_category #
+  def self.heading_for_view_schools_by_age_category
     puts "\nEffective Date    School Name\n" "-----------------------------"
   end
 
-  def self.count_school_types #
+  def self.count_school_types
     school_type_hash = Hash.new(0)
     get_school_type.each do |type|
         school_type_hash[type] += 1 
@@ -216,24 +216,24 @@ class NcCharterSchools::School
     end
   end
 
-  def self.merge_eff_date_and_school_name #
+  def self.merge_eff_date_and_school_name
     get_effective_date.zip(get_school_name)
   end
 
-  def self.get_effective_date #
+  def self.get_effective_date
     date = NcCharterSchools::School.all.map {|date| date.effective_date}.map {|t| Time.strptime(t, "%m-%d-%Y")}
   end
 
-  def self.calculate_year #
+  def self.calculate_year
     day = 60 * 60 * 24
     year = 365 * day
   end
 
-  def self.get_nc_counties  #
+  def self.get_nc_counties
     NcCharterSchools::Scraper.scrape_nc_county
   end
   
-  def self.get_number_of_schools_by_county  #
+  def self.get_number_of_schools_by_county
     county_hash = Hash.new{0}
     get_school_counties.each do |c|
       county_hash[c] += 1
@@ -269,11 +269,11 @@ class NcCharterSchools::School
     end
   end
   
-  def self.get_school_name  #
+  def self.get_school_name
     name = NcCharterSchools::School.all.map {|n| n.name}
   end
   
-  def self.get_schools_by_county  #
+  def self.get_schools_by_county
     county_sch_hash = Hash.new {|hash, key| hash[key] = []}
 
     merge_sch_county_and_school_name.each do |index|  
@@ -282,11 +282,11 @@ class NcCharterSchools::School
     county_sch_hash
   end
   
-  def self.merge_sch_county_and_school_name   #
+  def self.merge_sch_county_and_school_name
     get_school_counties.zip(get_school_name)
   end
   
-  def self.get_school_counties  #
+  def self.get_school_counties
     NcCharterSchools::School.all.map {|c| c.county}
   end
 end
