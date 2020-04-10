@@ -46,7 +46,6 @@ class NcCharterSchools::School
   end
  
   def self.find_school_by_name
-    prompt = TTY::Prompt.new
     school = NcCharterSchools::School.all[@@user_input -1]
    
         puts "\nSchool Details\n" "-----------------"
@@ -60,7 +59,7 @@ class NcCharterSchools::School
         puts "Grade:              #{school.grade}"
         @@school_url = school.url  # variable used in open_school_website method to open website
     
-    visit_school_website = prompt.select("\nWould you like to visit the school's website? ", %w(No Yes)) 
+    visit_school_website = TTY::Prompt.new.select("\nWould you like to visit the school's website? ", %w(No Yes)) 
     
     if visit_school_website == "Yes"
       open_school_website
@@ -118,12 +117,10 @@ class NcCharterSchools::School
   end
   
   def self.view_schools_by_age_category
-    prompt = TTY::Prompt.new
     calculate_year
     count = 0
     
-    puts
-    age_category = prompt.select("Please select the time period of school effective date: ", %w(Under_1_year Between_1_and_5_years Between_5_and_10_years Over_10_years Menu))
+    age_category = TTY::Prompt.new.select("\nPlease select the time period of school effective date: ", %w(Under_1_year Between_1_and_5_years Between_5_and_10_years Over_10_years Menu))
 
     case age_category
       when "Under_1_year"
@@ -242,11 +239,10 @@ class NcCharterSchools::School
   end
   
   def self.get_user_input
-    prompt = TTY::Prompt.new
-    user_confirmation = prompt.select("\nDo you have the assigned number of school you would like to find? ", %w(Yes No))
+    user_confirmation = TTY::Prompt.new.select("\nDo you have the assigned number of school you would like to find? ", %w(Yes No))
     
     if user_confirmation == "Yes"
-      puts "\nPlease select between 1 and #{ NcCharterSchools::School.all.size}"
+      puts "\nPlease select between 1 and #{NcCharterSchools::School.all.size}"
       @@user_input = gets.chomp.to_i
 
       validate_user_input
