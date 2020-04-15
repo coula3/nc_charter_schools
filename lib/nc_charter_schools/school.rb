@@ -197,15 +197,15 @@ class NcCharterSchools::School
 
   def self.get_school_type
     NcCharterSchools::School.all.map do |element|
-      if element.grade == ":KG:01:02:03:04:05" || element.grade == ":KG"
+      if element.grade.start_with?(":P3", ":PK", ":KG") && element.grade.end_with?(":P3", ":PK", ":KG", ":01", ":02", ":03", ":04", ":05")
         "Elem School only"
-      elsif element.grade == ":06:07:08"
+      elsif element.grade.start_with?(":06") && element.grade.end_with?(":06", ":07", ":08")
         "Middle School only"
-      elsif element.grade == ":09:10:11:12"
+      elsif element.grade.start_with?(":09") && element.grade.end_with?(":09", ":10", ":11", ":12")
         "High School only"
-      elsif element.grade == ":01:02:03:04:05:06:07:08" || element.grade == "03:04:05:06:07:08" || element.grade == "KG:01:02:03:04:05:06" || element.grade == ":KG:01:02:03:04:05:06:07:08" || element.grade == ":05:06:07:08" || element.grade == ":P3:PK:KG:01:02:03:04:05:06:07:08" || element.grade == ":PK:KG:01:02:03:04:05:06:07:08"
+      elsif element.grade.start_with?(":P3", ":PK", ":KG", ":01", ":02", ":03", ":04", ":05") && element.grade.end_with?( ":06", ":07", ":08")
         "Elem & Middle School"
-      elsif element.grade == "06:07:08:09:10:11" || element.grade == ":06:07:08:09:10:11:12"
+      elsif element.grade.start_with?(":06", ":07", ":08") && element.grade.end_with?(":09", ":10", ":11", ":12")
         "Middle & High School"
       else
         "Elem, Middle & High School"
