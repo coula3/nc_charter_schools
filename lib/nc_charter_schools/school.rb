@@ -99,13 +99,13 @@ class NcCharterSchools::School
   end
   
   def self.view_county_coverage_of_schools
-    puts "\nCounty           Schools\n"  "------------------------"
+    puts "\nNum  County          Schools\n"  "----------------------------"
     sorted_get_number_of_schools_by_county = get_number_of_schools_by_county.sort_by {|k, v| v}.reverse.to_h
-      sorted_get_number_of_schools_by_county.each do |k, v|
-        puts "#{k.ljust(get_number_of_schools_by_county.keys.max_by(&:length).length)}          #{v}"
+      sorted_get_number_of_schools_by_county.each.with_index(1) do |(k, v), i|
+        puts "#{i.to_s.concat('.').ljust(4)} #{k.ljust(get_number_of_schools_by_county.keys.max_by(&:length).length)}         #{v.to_s.rjust(2)}"
       end
-    puts "-----------------------\n" "No. of counties      #{get_number_of_schools_by_county.size}\n\n"
-    puts "NC county coverage #{((get_number_of_schools_by_county.size.to_f/get_nc_counties.size)*100).round(1)}%\n"
+    puts "----------------------------\n"
+    puts "NC county coverage     #{((get_number_of_schools_by_county.size.to_f/get_nc_counties.size)*100).round(1)}%\n\n"
     NcCharterSchools::CLI.menu
   end
 
@@ -177,9 +177,9 @@ class NcCharterSchools::School
     sorted_school_type_hash = count_school_types.sort_by {|k, v| v}.reverse.to_h
     puts
     sorted_school_type_hash.each do |k, v|
-        puts "#{k.ljust(30)} #{v}   (#{((v/NcCharterSchools::School.all.size.to_f)*100).round(1)}%)"
+        puts x = "#{k.ljust(30)} #{v.to_s.ljust(3)}     #{((v/NcCharterSchools::School.all.size.to_f)*100).round(1).to_s.concat('%').rjust(5)}"
     end
-    puts "---------------------------------------\n" "                    TOTAL      #{NcCharterSchools::School.all.size}\n"
+    puts "--------------------------------------------\n" "                    TOTAL      #{NcCharterSchools::School.all.size}\n"
     NcCharterSchools::CLI.menu
   end
 
