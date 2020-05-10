@@ -121,11 +121,12 @@ class NcCharterSchools::School
     count = 0
     
     age_category = TTY::Prompt.new.select("\nPlease select the time period of school effective date: ", %w(Under_1_year Between_1_and_5_years Between_5_and_10_years Over_10_years Menu))
+    merge_eff_date_and_school_name_sorted = merge_eff_date_and_school_name.sort_by {|k, v| k}
 
     case age_category
       when "Under_1_year"
         heading_for_view_schools_by_age_category
-        merge_eff_date_and_school_name.select do |element|
+        merge_eff_date_and_school_name_sorted.select do |element|
           if element[0] > Time.now - calculate_year
             puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
             count += 1
@@ -136,7 +137,7 @@ class NcCharterSchools::School
       view_schools_by_age_category
       when "Between_1_and_5_years"
         heading_for_view_schools_by_age_category
-        merge_eff_date_and_school_name.select do |element|
+        merge_eff_date_and_school_name_sorted.select do |element|
           if element[0] <= Time.now - calculate_year && element[0] > Time.now - (calculate_year * 5)
             puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
              count += 1
@@ -147,7 +148,7 @@ class NcCharterSchools::School
         view_schools_by_age_category
       when "Between_5_and_10_years"
         heading_for_view_schools_by_age_category
-        merge_eff_date_and_school_name.select do |element|
+        merge_eff_date_and_school_name_sorted.select do |element|
           if element[0] <= Time.now - (calculate_year * 5) && element[0] > Time.now - (calculate_year * 10)
             puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
             count += 1
@@ -158,7 +159,7 @@ class NcCharterSchools::School
         view_schools_by_age_category
       when "Over_10_years"
         heading_for_view_schools_by_age_category
-        merge_eff_date_and_school_name.select do |element|
+        merge_eff_date_and_school_name_sorted.select do |element|
           if element[0] <= Time.now - (calculate_year * 10) 
             puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
             count += 1
