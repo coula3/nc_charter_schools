@@ -46,7 +46,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/'thoug
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [MIT License](https://github.com/coula3/nc_charter_schools/blob/master/LICENSE.txt).
 
 ## Code of Conduct
 
