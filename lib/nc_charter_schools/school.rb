@@ -234,6 +234,10 @@ class NcCharterSchools::School
     end
     county_hash
   end
+
+  def self.get_school_counties
+    NcCharterSchools::School.all.map {|c| c.county}
+  end
   
   def self.get_user_input
     user_confirmation = TTY::Prompt.new.select("\nDo you have the assigned number of school you would like to find? ", %w(Yes No))
@@ -262,10 +266,6 @@ class NcCharterSchools::School
     end
   end
   
-  def self.get_school_name
-    name = NcCharterSchools::School.all.map {|n| n.name}
-  end
-  
   def self.get_schools_by_county
     county_sch_hash = Hash.new {|hash, key| hash[key] = []}
 
@@ -277,9 +277,5 @@ class NcCharterSchools::School
   
   def self.merge_sch_county_and_school_name
     NcCharterSchools::School.all.map {|i| [i.county, i.name]}
-  end
-  
-  def self.get_school_counties
-    NcCharterSchools::School.all.map {|c| c.county}
   end
 end
