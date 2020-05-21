@@ -117,7 +117,8 @@ class NcCharterSchools::School
   end
   
   def self.view_schools_by_age_category
-    calculate_year
+    # calculate_year
+
     count = 0
     
     age_category = TTY::Prompt.new.select("\nPlease select the time period of school effective date: ", %w(Under_1_year Between_1_and_5_years Between_5_and_10_years Over_10_years Menu))
@@ -219,8 +220,7 @@ class NcCharterSchools::School
   end
 
   def self.calculate_year
-    day = 60 * 60 * 24
-    year = 365 * day
+    year = (60 * 60 * 24) * 365
   end
 
   def self.get_nc_counties
