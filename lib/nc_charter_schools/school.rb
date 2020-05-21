@@ -127,6 +127,7 @@ class NcCharterSchools::School
       when "Under_1_year"
         heading_for_view_schools_by_age_category
         merge_eff_date_and_school_name_sorted.select do |element|
+          # binding.pry
           if element[0] > Time.now - calculate_year
             puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
             count += 1
@@ -280,11 +281,10 @@ class NcCharterSchools::School
   end
   
   def self.merge_sch_county_and_school_name
-    get_school_counties.zip(get_school_name)
+    NcCharterSchools::School.all.map {|i| [i.county, i.name]}
   end
   
   def self.get_school_counties
     NcCharterSchools::School.all.map {|c| c.county}
   end
 end
-
