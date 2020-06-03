@@ -40,7 +40,7 @@ class NcCharterSchools::School
  
   def self.view_schools
     NcCharterSchools::School.all.each.with_index(1) do |sch, index|
-      puts "#{index}. #{sch.name}  \n"
+      puts "#{index.to_s.concat('.').ljust(4)} #{sch.name}  \n"
     end
     NcCharterSchools::CLI.menu
   end
