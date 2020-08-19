@@ -39,7 +39,6 @@ class NcCharterSchools::School
   end
  
   def self.view_schools
-    sorted_schools = NcCharterSchools::School.all.sort_by { |school| school.name }
     sorted_schools.each.with_index(1) do |school, index|
       puts "#{index.to_s.concat('.').ljust(4)} #{school.name}  \n"
     end
@@ -47,7 +46,7 @@ class NcCharterSchools::School
   end
  
   def self.find_school_by_name
-    school = NcCharterSchools::School.all[@@user_input -1]
+    school = sorted_schools[@@user_input -1]
    
         puts "\nSchool Details\n" "-----------------"
         puts "Name:               #{school.name}"
@@ -68,6 +67,10 @@ class NcCharterSchools::School
     else
       NcCharterSchools::CLI.menu
     end
+  end
+
+  def self.sorted_schools
+    @@sorted_schools ||= NcCharterSchools::School.all.sort_by { |school| school.name }
   end
 
   def self.open_school_website
