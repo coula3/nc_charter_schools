@@ -5,8 +5,14 @@ class NcCharterSchools::Scraper
     @@doc ||= Nokogiri::HTML(open("http://apps.schools.nc.gov/ords/f?p=125:1100"))
   end
   
-  def self.scrape_name      
-    @@name ||= doc.css("td.t15Body a").map {|name| name.text}
+  def self.scrape_name
+    doc.css("td.t15Body a").map  do |name|
+      if name.text.start_with?(" ")
+        name = name.text.delete_prefix(" ")
+      else
+        name = name.text
+      end
+    end
   end
   
   def self.scrape_url
