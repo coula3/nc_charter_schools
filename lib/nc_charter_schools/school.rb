@@ -39,8 +39,9 @@ class NcCharterSchools::School
   end
  
   def self.view_schools
-    NcCharterSchools::School.all.each.with_index(1) do |sch, index|
-      puts "#{index.to_s.concat('.').ljust(4)} #{sch.name}  \n"
+    sorted_schools = NcCharterSchools::School.all.sort_by { |school| school.name }
+    sorted_schools.each.with_index(1) do |school, index|
+      puts "#{index.to_s.concat('.').ljust(4)} #{school.name}  \n"
     end
     NcCharterSchools::CLI.menu
   end
