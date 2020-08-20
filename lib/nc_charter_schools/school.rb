@@ -121,8 +121,6 @@ class NcCharterSchools::School
   end
   
   def self.view_schools_by_age_category
-    # calculate_year
-
     count = 0
     
     age_category = TTY::Prompt.new.select("\nPlease select the time period of school effective date: ", %w(Under_1_year Between_1_and_5_years Between_5_and_10_years Over_10_years Menu))
@@ -137,9 +135,8 @@ class NcCharterSchools::School
             count += 1
           end
         end
-      puts
-      puts "  #{count} school(s) with effective date #{age_category.downcase.gsub("_", " ")}"
-      view_schools_by_age_category
+        puts "\n  #{count} school#{'s' if count > 1} with effective date #{age_category.downcase.gsub("_", " ")}"
+        view_schools_by_age_category
       when "Between_1_and_5_years"
         heading_for_view_schools_by_age_category
         merge_eff_date_and_school_name_sorted.select do |element|
@@ -148,8 +145,7 @@ class NcCharterSchools::School
              count += 1
           end
         end
-        puts
-        puts "  #{count} school(s) with effective date #{age_category.downcase.gsub("_", " ")}"
+        puts "\n  #{count} school#{'s' if count > 1} with effective date #{age_category.downcase.gsub("_", " ")}"
         view_schools_by_age_category
       when "Between_5_and_10_years"
         heading_for_view_schools_by_age_category
@@ -159,8 +155,7 @@ class NcCharterSchools::School
             count += 1
           end
         end
-        puts
-        puts "  #{count} school(s) with effective date #{age_category.downcase.gsub("_", " ")}"
+        puts "\n  #{count} school#{'s' if count > 1} with effective date #{age_category.downcase.gsub("_", " ")}"
         view_schools_by_age_category
       when "Over_10_years"
         heading_for_view_schools_by_age_category
@@ -170,8 +165,7 @@ class NcCharterSchools::School
             count += 1
           end
         end
-        puts
-        puts "  #{count} school(s) with effective date #{age_category.downcase.gsub("_", " ")}"
+        puts "\n  #{count} school#{'s' if count > 1} with effective date #{age_category.downcase.gsub("_", " ")}"
         view_schools_by_age_category
       else
         NcCharterSchools::CLI.menu
