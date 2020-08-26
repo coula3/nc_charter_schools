@@ -16,26 +16,16 @@ class NcCharterSchools::School
  
   def self.new_from_ncdpi_website
     (0...NcCharterSchools::Scraper.scrape_name.size).to_a.each do |sch|
-      name = NcCharterSchools::Scraper.scrape_name[sch]
-      url = NcCharterSchools::Scraper.scrape_url[sch]
-      charter_code = NcCharterSchools::Scraper.scrape_charter_code[sch]
-      city_state = NcCharterSchools::Scraper.scrape_city_state[sch]
-      county = NcCharterSchools::Scraper.scrape_county[sch]
-      telephone = NcCharterSchools::Scraper.scrape_telephone[sch]
-      effective_date = NcCharterSchools::Scraper.scrape_effective_date[sch]
-      grade = NcCharterSchools::Scraper.scrape_grade[sch]
-      
       school = NcCharterSchools::School.new
-      school.name = name
-      school.url = url
-      school.charter_code = charter_code
-      school.city_state = city_state
-      school.county = county
-      school.telephone = telephone
-      school.effective_date = effective_date
-      school.grade = grade
+      school.name = NcCharterSchools::Scraper.scrape_name[sch]
+      school.url = NcCharterSchools::Scraper.scrape_url[sch]
+      school.charter_code = NcCharterSchools::Scraper.scrape_charter_code[sch]
+      school.city_state = NcCharterSchools::Scraper.scrape_city_state[sch]
+      school.county = NcCharterSchools::Scraper.scrape_county[sch]
+      school.telephone = NcCharterSchools::Scraper.scrape_telephone[sch]
+      school.effective_date = NcCharterSchools::Scraper.scrape_effective_date[sch]
+      school.grade = NcCharterSchools::Scraper.scrape_grade[sch]
     end
-   
   end
  
   def self.view_schools
