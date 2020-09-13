@@ -48,7 +48,15 @@ class NcCharterSchools::School
         puts "Effective_date:     #{school.effective_date}"
         puts "Grade:              #{school.grade}"
         @@school_url = school.url  # variable used in open_school_website method to open website
-    
+
+        get_user_choice_on_school_website_visit
+  end
+
+  def self.sorted_schools
+    @@sorted_schools ||= NcCharterSchools::School.all.sort_by { |school| school.name }
+  end
+
+  def self.get_user_choice_on_school_website_visit
     visit_school_website = TTY::Prompt.new.select("\nWould you like to visit the school's website? ", %w(No Yes)) 
     
     if visit_school_website == "Yes"
@@ -57,10 +65,6 @@ class NcCharterSchools::School
     else
       NcCharterSchools::CLI.menu
     end
-  end
-
-  def self.sorted_schools
-    @@sorted_schools ||= NcCharterSchools::School.all.sort_by { |school| school.name }
   end
 
   def self.open_school_website
