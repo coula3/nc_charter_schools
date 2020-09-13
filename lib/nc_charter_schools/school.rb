@@ -108,9 +108,9 @@ class NcCharterSchools::School
   end
 
   def self.view_counties_without_charter_school
-    counties_without = get_nc_counties - get_school_counties
+    counties_without_with_chartered_schools = get_nc_counties - get_school_counties
     puts "\nNC counties without charter schools\n" "-----------------------------------"
-    counties_without.each.with_index(1) {|county, index| puts "#{index.to_s.concat('.').ljust(4)} #{county}"}
+    counties_without_with_chartered_schools.each.with_index(1) {|county, index| puts "#{index.to_s.concat('.').ljust(4)} #{county}"}
     NcCharterSchools::CLI.menu
   end
   
