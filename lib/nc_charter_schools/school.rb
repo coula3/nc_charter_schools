@@ -116,54 +116,42 @@ class NcCharterSchools::School
   
   def self.view_schools_by_age_category
     count = 0
-    
     age_category = TTY::Prompt.new.select("\nPlease select the time period of school effective date: ", %w(Under_1_year Between_1_and_5_years Between_5_and_10_years Over_10_years Menu))
 
     case age_category
       when "Under_1_year"
-        heading_for_view_schools_by_age_category
-        merge_eff_date_and_school_name_sorted.select do |element|
-          if element[0] > Time.now - calculate_year
-            puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
-            count += 1
-          end
-        end
-        puts "\n  #{count} school#{'s' if count > 1} with effective date #{age_category.downcase.gsub("_", " ")}"
-        view_schools_by_age_category
+        get_schools_by_age_category(count, age_category, period="under 1")
       when "Between_1_and_5_years"
-        heading_for_view_schools_by_age_category
-        merge_eff_date_and_school_name_sorted.select do |element|
-          if element[0] <= Time.now - calculate_year && element[0] > Time.now - (calculate_year * 5)
-            puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
-             count += 1
-          end
-        end
-        puts "\n  #{count} school#{'s' if count > 1} with effective date #{age_category.downcase.gsub("_", " ")}"
-        view_schools_by_age_category
+        get_schools_by_age_category(count, age_category, period="between 1 and 5")
       when "Between_5_and_10_years"
-        heading_for_view_schools_by_age_category
-        merge_eff_date_and_school_name_sorted.select do |element|
-          if element[0] <= Time.now - (calculate_year * 5) && element[0] > Time.now - (calculate_year * 10)
-            puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
-            count += 1
-          end
-        end
-        puts "\n  #{count} school#{'s' if count > 1} with effective date #{age_category.downcase.gsub("_", " ")}"
-        view_schools_by_age_category
+        get_schools_by_age_category(count, age_category, period="between 5 and 10")
       when "Over_10_years"
-        heading_for_view_schools_by_age_category
-        merge_eff_date_and_school_name_sorted.select do |element|
-          if element[0] <= Time.now - (calculate_year * 10) 
-            puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
-            count += 1
-          end
-        end
-        puts "\n  #{count} school#{'s' if count > 1} with effective date #{age_category.downcase.gsub("_", " ")}"
-        view_schools_by_age_category
+        get_schools_by_age_category(count, age_category, period="over 10")
       else
         NcCharterSchools::CLI.menu
         puts
     end
+  end
+
+  def self.get_schools_by_age_category(count, age_category, period)
+    heading_for_view_schools_by_age_category
+    merge_eff_date_and_school_name_sorted.select do |element|
+      if period == "under 1" && element[0] > Time.now - calculate_year
+        puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
+        count += 1
+      elsif period == "between 1 and 5" && element[0] <= Time.now - calculate_year && element[0] > Time.now - (calculate_year * 5)
+        puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
+        count += 1
+      elsif period == "between 5 and 10" && element[0] <= Time.now - (calculate_year * 5) && element[0] > Time.now - (calculate_year * 10)
+        puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
+        count += 1
+      elsif period == "over 10" && element[0] <= Time.now - (calculate_year * 10)
+        puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
+        count += 1
+      end
+    end
+    puts "\n  #{count} school#{'s' if count > 1} with effective date #{age_category.downcase.gsub("_", " ")}"
+    view_schools_by_age_category
   end
 
   def self.view_school_types
