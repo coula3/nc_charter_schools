@@ -137,21 +137,25 @@ class NcCharterSchools::School
     heading_for_view_schools_by_age_category
     merge_eff_date_and_school_name_sorted.select do |element|
       if period == "under 1" && element[0] > Time.now - calculate_year
-        puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
+        render_eff_date_and_school_name(element)
         count += 1
       elsif period == "between 1 and 5" && element[0] <= Time.now - calculate_year && element[0] > Time.now - (calculate_year * 5)
-        puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
+        render_eff_date_and_school_name(element)
         count += 1
       elsif period == "between 5 and 10" && element[0] <= Time.now - (calculate_year * 5) && element[0] > Time.now - (calculate_year * 10)
-        puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
+        render_eff_date_and_school_name(element)
         count += 1
       elsif period == "over 10" && element[0] <= Time.now - (calculate_year * 10)
-        puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
+        render_eff_date_and_school_name(element)
         count += 1
       end
     end
     puts "\n  #{count} school#{'s' if count > 1} with effective date #{age_category.downcase.gsub("_", " ")}"
     view_schools_by_age_category
+  end
+
+  def self.render_eff_date_and_school_name(element)
+    puts "#{element[0].strftime("%m/%d/%Y")}        #{element[1]}"
   end
 
   def self.view_school_types
