@@ -118,7 +118,6 @@ class NcCharterSchools::School
     count = 0
     
     age_category = TTY::Prompt.new.select("\nPlease select the time period of school effective date: ", %w(Under_1_year Between_1_and_5_years Between_5_and_10_years Over_10_years Menu))
-    merge_eff_date_and_school_name_sorted = merge_eff_date_and_school_name.sort_by {|k, v| k}
 
     case age_category
       when "Under_1_year"
@@ -205,6 +204,10 @@ class NcCharterSchools::School
         "Elem, Middle & High School"
       end
     end
+  end
+  
+  def self.merge_eff_date_and_school_name_sorted
+    merge_eff_date_and_school_name.sort_by {|k, v| k}
   end
 
   def self.merge_eff_date_and_school_name
