@@ -53,7 +53,7 @@ class NcCharterSchools::School
   end
 
   def self.sorted_schools
-    @@sorted_schools ||= NcCharterSchools::School.all.sort_by { |school| school.name }
+    sorted_schools ||= NcCharterSchools::School.all.sort_by { |school| school.name }
   end
 
   def self.get_user_choice_on_school_website_visit
