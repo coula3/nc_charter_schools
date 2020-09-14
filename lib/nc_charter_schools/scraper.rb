@@ -6,13 +6,7 @@ class NcCharterSchools::Scraper
   end
   
   def self.scrape_name
-    doc.css("td.t15Body a").map  do |name|
-      if name.text.start_with?(" ")
-        name = name.text.delete_prefix(" ")
-      else
-        name = name.text
-      end
-    end
+    @@name ||= doc.css("td.t15Body a").map {|name| name.text.lstrip}
   end
   
   def self.scrape_url
