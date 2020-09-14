@@ -14,7 +14,7 @@ class NcCharterSchools::School
     @@all << self
   end
  
-  def self.new_from_ncdpi_website
+  def self.create_from_ncdpi_website
     (0...NcCharterSchools::Scraper.scrape_name.size).to_a.each do |sch|
       school = NcCharterSchools::School.new
       school.name = NcCharterSchools::Scraper.scrape_name[sch]

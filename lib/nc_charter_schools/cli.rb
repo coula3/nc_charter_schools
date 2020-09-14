@@ -5,8 +5,8 @@ class NcCharterSchools::CLI
     puts "|     Welcome to CLI App on Charter Schools in North Carolina!     |"
     puts " ================================================================== \n\n\n"
     
-    NcCharterSchools::School.new_from_ncdpi_website
-    
+    NcCharterSchools::School.create_from_ncdpi_website
+
     self.class.menu
   end
 
