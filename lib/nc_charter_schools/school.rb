@@ -38,18 +38,18 @@ class NcCharterSchools::School
   def self.find_school_by_name
     school = sorted_schools[@@user_input -1]
    
-        puts "\nSchool Details\n" "-----------------"
-        puts "Name:               #{school.name}"
-        puts "Wesite:             #{school.url}"
-        puts "Charter Code:       #{school.charter_code}"
-        puts "City & State:       #{school.city_state}"
-        puts "County:             #{school.county}"
-        puts "Telephone:          #{school.telephone}"
-        puts "Effective_date:     #{school.effective_date}"
-        puts "Grade:              #{school.grade}"
-        @@school_url = school.url  # variable used in open_school_website method to open website
+    puts "\nSchool Details\n" "-----------------"
+    puts "Name:               #{school.name}"
+    puts "Wesite:             #{school.url}"
+    puts "Charter Code:       #{school.charter_code}"
+    puts "City & State:       #{school.city_state}"
+    puts "County:             #{school.county}"
+    puts "Telephone:          #{school.telephone}"
+    puts "Effective_date:     #{school.effective_date}"
+    puts "Grade:              #{school.grade}"
+    @@school_url = school.url  # variable used in open_school_website method to open website
 
-        get_user_choice_on_school_website_visit
+    get_user_choice_on_school_website_visit
   end
 
   def self.sorted_schools
