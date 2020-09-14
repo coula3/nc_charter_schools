@@ -115,7 +115,6 @@ class NcCharterSchools::School
   end
   
   def self.view_schools_by_age_category
-
     age_category = TTY::Prompt.new.select("\nPlease select the time period of school effective date: ", %w(Under_1_year Between_1_and_5_years Between_5_and_10_years Over_10_years Menu))
 
     case age_category
@@ -129,7 +128,6 @@ class NcCharterSchools::School
         get_schools_by_age_category(age_category, period="over 10")
       else
         NcCharterSchools::CLI.menu
-        puts
     end
   end
 
@@ -236,7 +234,6 @@ class NcCharterSchools::School
       @@user_input = gets.chomp.to_i
 
       validate_user_input
-   
     else
       puts "\nPlease select from alphabetical list of schools which will be available momentarily"
       sleep 2.5
