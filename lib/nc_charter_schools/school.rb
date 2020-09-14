@@ -115,6 +115,7 @@ class NcCharterSchools::School
   end
   
   def self.view_schools_by_age_category
+
     age_category = TTY::Prompt.new.select("\nPlease select the time period of school effective date: ", %w(Under_1_year Between_1_and_5_years Between_5_and_10_years Over_10_years Menu))
 
     case age_category
@@ -136,7 +137,7 @@ class NcCharterSchools::School
     count = 0
     heading_for_view_schools_by_age_category
 
-    merge_eff_date_and_school_name_sorted.select do |element|
+    merge_eff_date_and_school_name_sorted.each do |element|
       if period == "under 1" && element[0] > Time.now - calculate_year
         render_eff_date_and_school_name(element)
         count += 1
