@@ -236,8 +236,14 @@ class NcCharterSchools::School
 
       validate_user_input
     else
-      puts "\nPlease select from alphabetical list of schools which will be available momentarily"
-      sleep 2.5
+      puts "\nPlease select assigned number of school from alphabetical list that loads momentarily\n\n"
+
+      15.times do
+        print "."
+        sleep 0.2
+      end
+
+      puts "\n\n\n"
       view_schools
     end
   end
