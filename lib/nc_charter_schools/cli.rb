@@ -1,7 +1,7 @@
 class NcCharterSchools::CLI
   def call
     puts "\n\n ================================================================== "
-    puts "|     Welcome to CLI App on Charter Schools in North Carolina!     |"
+    puts "|               Welcome to NC Charter Schools Data                 |"
     puts " ================================================================== \n\n\n"
     
     NcCharterSchools::School.create_from_ncdpi_website
