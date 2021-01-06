@@ -10,12 +10,12 @@ class NcCharterSchools::CLI
   end
 
   def self.menu
-    menu = TTY::Prompt.new.select("\nPlease select what you would like to do:  ", %w(View_Schools  Find_School_by_Name Find_Schools_by_County View_County_Coverage_of_Schools View_Counties_without_Charter_School View_Schools_by_Age_Category View_School_Types Exit))
+    menu = TTY::Prompt.new.select("\nPlease select what you would like to do:  ", %w(View_Schools  Find_School_by_Number Find_Schools_by_County View_County_Coverage_of_Schools View_Counties_without_Charter_School View_Schools_by_Age_Category View_School_Types Exit))
   
     case menu
       when "View_Schools"
         NcCharterSchools::School.view_schools
-      when "Find_School_by_Name"
+      when "Find_School_by_Number"
         NcCharterSchools::School.get_user_input
       when "Find_Schools_by_County"
         NcCharterSchools::School.find_schools_by_county
