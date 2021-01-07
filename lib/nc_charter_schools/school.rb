@@ -103,7 +103,7 @@ class NcCharterSchools::School
         puts "#{i.to_s.concat('.').ljust(4)} #{k.ljust(get_number_of_schools_by_county.keys.max_by(&:length).length+8)} #{v.to_s.rjust(2)}"
       end
     puts "----------------------------\n"
-    puts "Total Charter Schools    #{NcCharterSchools::School.all.size}\n\n"
+    puts "Total Charter Schools    #{num_of_schools}\n\n"
     puts "NC county coverage     #{((get_number_of_schools_by_county.size.to_f/get_nc_counties.size)*100).round(1)}%\n"
     puts "----------------------------\n\n"
 
@@ -167,10 +167,10 @@ class NcCharterSchools::School
     count_of_schools = 0
     puts
     sorted_school_type_hash.each do |k, v|
-        puts "#{k.ljust(30)} #{v.to_s.rjust(3)}     #{((v/NcCharterSchools::School.all.size.to_f)*100).round(1).to_s.concat('%').rjust(5)}"
+        puts "#{k.ljust(30)} #{v.to_s.rjust(3)}     #{((v/num_of_schools.to_f)*100).round(1).to_s.concat('%').rjust(5)}"
         count_of_schools += v
     end
-    puts "--------------------------------------------\n" "                    TOTAL      #{NcCharterSchools::School.all.size}     #{((count_of_schools/NcCharterSchools::School.all.size.to_f)*100).round(1).to_s.concat('%')}\n\n"
+    puts "--------------------------------------------\n" "                    TOTAL      #{num_of_schools}     #{((count_of_schools/num_of_schools.to_f)*100).round(1).to_s.concat('%')}\n\n"
     NcCharterSchools::CLI.menu
   end
 
@@ -236,7 +236,7 @@ class NcCharterSchools::School
     user_confirmation = TTY::Prompt.new.select("\nDo you have the assigned number of school you would like to find? ", %w(Yes No))
     
     if user_confirmation == "Yes"
-      puts "\nPlease select between 1 and #{NcCharterSchools::School.all.size}"
+      puts "\nPlease select between 1 and #{num_of_schools}"
       @@user_input = gets.chomp.to_i
 
       validate_user_input
@@ -254,7 +254,7 @@ class NcCharterSchools::School
   end
 
   def self.validate_user_input
-    if until @@user_input > 0 && @@user_input <= NcCharterSchools::School.all.size do 
+    if until @@user_input > 0 && @@user_input <= num_of_schools do
       puts "\nYou made an invalid selection. Please try again"
       @@user_input = gets.chomp.to_i
       end          
@@ -275,5 +275,9 @@ class NcCharterSchools::School
   
   def self.merge_sch_county_and_school_name
     NcCharterSchools::School.all.map {|i| [i.county, i.name]}
+  end
+
+  def self.num_of_schools
+    num ||= NcCharterSchools::School.all.size
   end
 end
