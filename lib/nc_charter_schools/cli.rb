@@ -28,9 +28,22 @@ class NcCharterSchools::CLI
       when "View_School_Types"
         NcCharterSchools::School.view_school_types
       else
-        puts "\nThank you for using the app and goodbye!\n\n\n"
-        sleep 1.0
-        exit
+        self.new.exit_app
     end
+  end
+
+  def exit_app
+    puts "\n\nThank you for using the app and goodbye!\n\n\n"
+
+    quote = "All of life is constant education - Eleanor Roosevelt"
+    quote_array = quote.split("")
+
+    quote_array.each do
+      |str| print "#{str}"
+      sleep 0.1
+    end
+
+    puts "\n\n\n"
+    exit
   end
 end
