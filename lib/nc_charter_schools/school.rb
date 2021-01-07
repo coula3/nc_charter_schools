@@ -53,7 +53,7 @@ class NcCharterSchools::School
   end
 
   def self.sorted_schools
-    sorted_schools ||= NcCharterSchools::School.all.sort_by { |school| school.name }
+    sorted_schools ||= get_schools.sort_by { |school| school.name }
   end
 
   def self.get_user_choice_on_school_website_visit
@@ -187,7 +187,7 @@ class NcCharterSchools::School
   end
 
   def self.get_school_type
-    NcCharterSchools::School.all.map do |element|
+    get_schools.map do |element|
       if element.grade.start_with?(":P3", ":PK", ":KG") && element.grade.end_with?(":P3", ":PK", ":KG", ":01", ":02", ":03", ":04", ":05")
         "Elem School only"
       elsif element.grade.start_with?(":06") && element.grade.end_with?(":06", ":07", ":08")
@@ -209,7 +209,7 @@ class NcCharterSchools::School
   end
 
   def self.merge_eff_date_and_school_name
-    NcCharterSchools::School.all.map {|i| [Time.strptime(i.effective_date, "%m-%d-%Y"), i.name]}
+    get_schools.map {|i| [Time.strptime(i.effective_date, "%m-%d-%Y"), i.name]}
   end
 
   def self.calculate_year
@@ -229,7 +229,7 @@ class NcCharterSchools::School
   end
 
   def self.get_school_counties
-    NcCharterSchools::School.all.map {|c| c.county}
+    get_schools.map {|c| c.county}
   end
   
   def self.get_user_input
@@ -274,10 +274,14 @@ class NcCharterSchools::School
   end
   
   def self.merge_sch_county_and_school_name
-    NcCharterSchools::School.all.map {|i| [i.county, i.name]}
+    get_schools.map {|i| [i.county, i.name]}
   end
 
   def self.num_of_schools
-    num ||= NcCharterSchools::School.all.size
+    num ||= get_schools.size
+  end
+
+  def self.get_schools
+    schools ||= NcCharterSchools::School.all
   end
 end
