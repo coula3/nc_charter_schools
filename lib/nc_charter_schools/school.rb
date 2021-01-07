@@ -164,11 +164,13 @@ class NcCharterSchools::School
 
   def self.view_school_types
     sorted_school_type_hash = count_school_types.sort_by {|k, v| v}.reverse.to_h
+    count_of_schools = 0
     puts
     sorted_school_type_hash.each do |k, v|
-        puts x = "#{k.ljust(30)} #{v.to_s.rjust(3)}     #{((v/NcCharterSchools::School.all.size.to_f)*100).round(1).to_s.concat('%').rjust(5)}"
+        puts "#{k.ljust(30)} #{v.to_s.rjust(3)}     #{((v/NcCharterSchools::School.all.size.to_f)*100).round(1).to_s.concat('%').rjust(5)}"
+        count_of_schools += v
     end
-    puts "--------------------------------------------\n" "                    TOTAL      #{NcCharterSchools::School.all.size}\n"
+    puts "--------------------------------------------\n" "                    TOTAL      #{NcCharterSchools::School.all.size}     #{((count_of_schools/NcCharterSchools::School.all.size.to_f)*100).round(1).to_s.concat('%')}\n\n"
     NcCharterSchools::CLI.menu
   end
 
