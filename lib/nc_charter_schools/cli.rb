@@ -40,7 +40,7 @@ class NcCharterSchools::CLI
 
     quote_array.each do
       |str| print "#{str}"
-      sleep 0.1
+      sleep 0.075
     end
 
     puts "\n\n\n"
