@@ -85,7 +85,7 @@ class NcCharterSchools::School
     user_input = gets.chomp.to_i
     
     if until user_input > 0 && user_input <= get_school_counties.uniq.size do
-      puts "\nYou made an invalid selection. Please try again"
+      puts "\nInvalid entry. Please select between 1 and #{get_school_counties.uniq.size} inclusive."
       user_input = gets.chomp.to_i
       end
     else
