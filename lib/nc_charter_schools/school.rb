@@ -98,10 +98,10 @@ class NcCharterSchools::School
   
   def self.view_county_coverage_of_schools
     puts "\nNum  County          Schools\n"  "----------------------------"
-    sorted_get_number_of_schools_by_county = get_number_of_schools_by_county.sort_by {|k, v| v}.reverse.to_h
-      sorted_get_number_of_schools_by_county.each.with_index(1) do |(k, v), i|
-        puts "#{i.to_s.concat('.').ljust(4)} #{k.ljust(get_number_of_schools_by_county.keys.max_by(&:length).length+8)} #{v.to_s.rjust(2)}"
-      end
+    sorted_get_number_of_schools_by_county = get_number_of_schools_by_county.sort_by {|county, count_of_schools_in_county| count_of_schools_in_county}.reverse.to_h
+    sorted_get_number_of_schools_by_county.each.with_index(1) do |(county, count_of_schools_in_county), index|
+      puts "#{index.to_s.concat('.').ljust(4)} #{county.ljust(get_number_of_schools_by_county.keys.max_by(&:length).length+8)} #{count_of_schools_in_county.to_s.rjust(2)}"
+    end
     puts "----------------------------\n"
     puts "Total Charter Schools    #{num_of_schools}\n\n"
     puts "NC county coverage     #{((get_number_of_schools_by_county.size.to_f/get_nc_counties.size)*100).round(1)}%\n"
