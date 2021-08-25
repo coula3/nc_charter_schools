@@ -46,6 +46,8 @@ class NcCharterSchools::Scraper
   end
 
   def self.scrape_nc_county
-    @@nc_counties ||= county_doc.css("table.telerik-reTable-2 h2.subhead1").map {|c| c.text}.map {|e| e.gsub(/\u00A0|\n/, "")}.map {|e| e.gsub(/[^"]\s[^a-zA-z]/, "")}.map {|e| e.gsub(" County", "")}
+    @@nc_counties ||= county_doc.css("div.map-select option").select do |v|
+      v.attributes.size == 3
+    end.map { |c| c.children.text }
   end
 end
