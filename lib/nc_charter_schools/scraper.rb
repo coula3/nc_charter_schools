@@ -14,7 +14,7 @@ class NcCharterSchools::Scraper
   end
 
   def self.scrape_charter_code
-    @@charter_code ||= doc.css("td.apex_report_break").map {|code| code.children.text.scan(/Charter Code:\s\S+/).join.gsub("Charter Code: ", "")}
+    @@charter_code ||= doc.css("td.apex_report_break").map {|code| code.children.text.scan(/(?<=Code:.)\S{3}/)}.flatten
   end
 
   def self.scrape_city_state
@@ -33,7 +33,7 @@ class NcCharterSchools::Scraper
   end
 
   def self.scrape_effective_date
-    @@effective_date ||= doc.css("td.apex_report_break").map {|date| date.children.text.scan(/School Effective Date:\s\d+\/\d+\/\d+/).join.gsub("School Effective Date: ","").gsub("/", "-")}
+    @@effective_date ||= doc.css("td.apex_report_break").map {|date| date.children.text.scan(/(?<=Date:.)\S{10}/)}.flatten.map {|date| date.gsub("/", "-")}
   end
 
   def self.scrape_grade
