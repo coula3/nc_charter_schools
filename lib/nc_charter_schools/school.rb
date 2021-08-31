@@ -170,7 +170,7 @@ class NcCharterSchools::School
         puts "#{k.ljust(30)} #{v.to_s.rjust(3)}     #{((v/num_of_schools.to_f)*100).round(1).to_s.concat('%').rjust(5)}"
         count_of_schools += v
     end
-    puts "--------------------------------------------\n" "                    TOTAL      #{num_of_schools}     #{((count_of_schools/num_of_schools.to_f)*100).round(1).to_s.concat('%')}\n\n"
+    puts "--------------------------------------------\n" "                    TOTAL      #{num_of_schools}    #{((count_of_schools/num_of_schools.to_f)*100).round(1).to_s.concat('%')}\n\n"
     NcCharterSchools::CLI.menu
   end
 
