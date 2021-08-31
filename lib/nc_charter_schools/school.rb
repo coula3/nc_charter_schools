@@ -68,7 +68,7 @@ class NcCharterSchools::School
   end
 
   def self.open_school_website
-    if @@school_url.include?("http") || @@school_url.include?("www")
+    if @@school_url && (@@school_url.include?("http") || @@school_url.include?("www"))
       system("open '#{@@school_url}'")
     else
       puts "\nThere is no valid website available for this school\n\n"
