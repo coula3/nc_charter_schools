@@ -6,7 +6,9 @@ class NcCharterSchools::Scraper
   end
   
   def self.scrape_name
-    @@name ||= doc.css("td.apex_report_break").map {|name| name.children.text.lstrip.scan(/[a-zA-Z\W\s]+(?=Charter Code)/)}.flatten
+    @@name ||= doc.css("td.apex_report_break").map do |name|
+      name.children.text.lstrip.scan(/[a-zA-Z\W\s]+(?=Charter Code)/)
+    end.flatten
   end
   
   def self.scrape_url
