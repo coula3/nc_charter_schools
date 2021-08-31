@@ -35,7 +35,9 @@ class NcCharterSchools::Scraper
   end
 
   def self.scrape_county
-    @@county ||= data_load.map {|county| county.children.text.scan(/County:\s\w+\s\w+/).join.gsub(/\nSchool/, "").gsub("County: ", "")}
+    @@county ||= data_load.map do |data|
+      data.children.text.scan(/(?<=County: )[a-zA-Z\s]+\n/).join.gsub(/\n/, "").strip
+    end
   end
 
   def self.scrape_telephone
