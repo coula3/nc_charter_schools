@@ -29,9 +29,8 @@ class NcCharterSchools::Scraper
 
   def self.scrape_city_state
     @@city_state ||= data_load.map do |cs|
-      city_state_text = cs.children.text.scan(/\w+\s\w+\s\,\s\NC\s\d+|\w+\,\s\NC\s\d+|\w+\s\w+\,\s\NC\s\d+|\w+\-\w+\,\s\NC\s\d+/).join
-      sanitized_text = city_state_text.gsub(/\D+\n/, "").gsub("\n", "")
-    end.map {|e| e.gsub(/\A\d+/, "")}
+      cs.children.text.scan(/(?<=\n)[a-zA-Z\s\W]+\s\NC\s\d+/)
+    end.flatten
   end
 
   def self.scrape_county
