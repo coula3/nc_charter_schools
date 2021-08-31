@@ -5,14 +5,18 @@ class NcCharterSchools::Scraper
     @@doc ||= Nokogiri::HTML(open("http://apps.schools.nc.gov/ords/f?p=125:1100"))
   end
   
+  def self.data_load
+    data_load ||= doc.css("td.apex_report_break")
+  end
+
   def self.scrape_name
-    @@name ||= doc.css("td.apex_report_break").map do |name|
+    @@name ||= data_load.map do |name|
       name.children.text.lstrip.scan(/[a-zA-Z\W\s]+(?=Charter Code)/)
     end.flatten
   end
   
   def self.scrape_url
-    @@url ||= doc.css("td.apex_report_break").map do |data|
+    @@url ||= data_load.map do |data|
       data.children
     end.map do |data|
       data[2].name == "a" ? data[2].attribute("href").value : nil
@@ -20,26 +24,26 @@ class NcCharterSchools::Scraper
   end
 
   def self.scrape_charter_code
-    @@charter_code ||= doc.css("td.apex_report_break").map {|code| code.children.text.scan(/(?<=Code:.)\S{3}/)}.flatten
+    @@charter_code ||= data_load.map {|code| code.children.text.scan(/(?<=Code:.)\S{3}/)}.flatten
   end
 
   def self.scrape_city_state
-    @@city_state ||= doc.css("td.apex_report_break").map do |cs| 
+    @@city_state ||= data_load.map do |cs|
       city_state_text = cs.children.text.scan(/\w+\s\w+\s\,\s\NC\s\d+|\w+\,\s\NC\s\d+|\w+\s\w+\,\s\NC\s\d+|\w+\-\w+\,\s\NC\s\d+/).join
       sanitized_text = city_state_text.gsub(/\D+\n/, "").gsub("\n", "")
     end.map {|e| e.gsub(/\A\d+/, "")}
   end
 
   def self.scrape_county
-    @@county ||= doc.css("td.apex_report_break").map {|county| county.children.text.scan(/County:\s\w+\s\w+/).join.gsub(/\nSchool/, "").gsub("County: ", "")}
+    @@county ||= data_load.map {|county| county.children.text.scan(/County:\s\w+\s\w+/).join.gsub(/\nSchool/, "").gsub("County: ", "")}
   end
 
   def self.scrape_telephone
-    @@telephone ||= doc.css("td.apex_report_break").map {|tel| tel.children.text.scan(/Phone:\s\d+\.\d+\d.\d+/).join.gsub("Phone: ", "")}
+    @@telephone ||= data_load.map {|tel| tel.children.text.scan(/Phone:\s\d+\.\d+\d.\d+/).join.gsub("Phone: ", "")}
   end
 
   def self.scrape_effective_date
-    @@effective_date ||= doc.css("td.apex_report_break").map {|date| date.children.text.scan(/(?<=Date:.)\S{10}/)}.flatten.map {|date| date.gsub("/", "-")}
+    @@effective_date ||= data_load.map {|date| date.children.text.scan(/(?<=Date:.)\S{10}/)}.flatten.map {|date| date.gsub("/", "-")}
   end
 
   def self.scrape_grade
