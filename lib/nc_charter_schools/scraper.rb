@@ -10,7 +10,11 @@ class NcCharterSchools::Scraper
   end
   
   def self.scrape_url
-    @@url ||= doc.css("td.t15Body a").map {|url| url.attribute("href").value}
+    @@url ||= doc.css("td.apex_report_break").map do |data|
+      data.children
+    end.map do |data|
+      data[2].name == "a" ? data[2].attribute("href").value : nil
+    end
   end
 
   def self.scrape_charter_code
