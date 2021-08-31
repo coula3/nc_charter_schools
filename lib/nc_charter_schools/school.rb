@@ -49,7 +49,7 @@ class NcCharterSchools::School
     puts "Grade:              #{school.grade}"
     @@school_url = school.url  # variable used in open_school_website method to open website
 
-    get_user_choice_on_school_website_visit
+    @@school_url ? get_user_choice_on_school_website_visit : NcCharterSchools::CLI.menu
   end
 
   def self.sorted_schools
@@ -68,14 +68,10 @@ class NcCharterSchools::School
   end
 
   def self.open_school_website
-    if @@school_url
-      if @@school_url.include?("http")
-        system("open '#{@@school_url}'")
-      else
-        system("open 'https://#{@@school_url}'")
-      end
+    if @@school_url.include?("http")
+      system("open '#{@@school_url}'")
     else
-      puts "\nThere is no valid website available for this school\n\n"
+      system("open 'https://#{@@school_url}'")
     end
   end
   
