@@ -24,7 +24,7 @@ class NcCharterSchools::Scraper
   end
 
   def self.scrape_charter_code
-    @@charter_code ||= data_load.map {|data| data.children.text.scan(/(?<=Code:.)\S{3}/)}.flatten
+    @@charter_code ||= data_load.map {|data| data.children.text.scan(/(?<=Charter Code:.)\S{3}/)}.flatten
   end
 
   def self.scrape_city_state
@@ -44,7 +44,7 @@ class NcCharterSchools::Scraper
   end
 
   def self.scrape_effective_date
-    @@effective_date ||= data_load.map {|data| data.children.text.scan(/(?<=Date:.)\S{10}/)}.flatten.map {|date| date.gsub("/", "-")}
+    @@effective_date ||= data_load.map {|data| data.children.text.scan(/(?<=Effective Date:.)\S{10}/)}.flatten.map {|date| date.gsub("/", "-")}
   end
 
   def self.scrape_grade
