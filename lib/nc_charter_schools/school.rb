@@ -15,7 +15,7 @@ class NcCharterSchools::School
   end
  
   def self.create_from_ncdpi_website
-    (0...NcCharterSchools::Scraper.scrape_name.size).to_a.each do |sch|
+    (0...NcCharterSchools::Scraper.data_load.size).to_a.each do |sch|
       school = NcCharterSchools::School.new
       school.name = NcCharterSchools::Scraper.scrape_name[sch]
       school.url = NcCharterSchools::Scraper.scrape_url[sch]
